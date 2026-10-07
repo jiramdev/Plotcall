@@ -1,68 +1,73 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Plotcall",
+  description: "Three research prototypes: guess a public statistic, then see the CBS figure.",
+};
+
+const prototypes = [
+  {
+    href: "/poc/predict-vs-read",
+    title: "Predict vs read",
+    test: "Does guessing before the chart change what people remember?",
+  },
+  {
+    href: "/poc/input-methods",
+    title: "Input methods",
+    test: "Draw, a number slider, or a yes/no probability: which way of guessing is usable?",
+  },
+  {
+    href: "/poc/crowd",
+    title: "Crowd",
+    test: "After you guess, does a distribution of other guesses change the story?",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className="min-h-dvh bg-paper text-ink">
+      <header className="mx-auto flex w-full max-w-lg items-center justify-between px-4 py-3">
+        <p className="text-sm font-semibold tracking-tight">Plotcall</p>
+        <Link
+          href="/results"
+          className="text-sm font-medium text-muted underline-offset-4 hover:text-ink hover:underline"
+        >
+          Results
+        </Link>
+      </header>
+      <main id="content" className="mx-auto w-full max-w-lg px-4 pb-16">
+        <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+          Fontys ICT · user-test kit
+        </p>
+        <h1 className="mt-2 text-[1.85rem] font-semibold leading-[1.15] tracking-tight text-balance">
+          Guess the figure. Then see what CBS measured.
+        </h1>
+        <p className="mt-3 text-base leading-relaxed text-ink/80">
+          Three short prototypes for a phone test. Each one isolates a single question about how
+          people meet a public statistic.
+        </p>
+        <ul className="mt-6 space-y-3">
+          {prototypes.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className="block rounded-2xl bg-white px-4 py-4 ring-1 ring-line"
+              >
+                <span className="block text-lg font-semibold">{item.title}</span>
+                <span className="mt-1 block text-sm leading-relaxed text-muted">{item.test}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-8 text-sm leading-relaxed text-muted">
+          For the person running the session: answers are saved on the phone. Open{" "}
+          <Link href="/results" className="font-semibold text-ink underline underline-offset-4">
+            the results log
+          </Link>{" "}
+          to check them and download a CSV. Figures are from CBS StatLine, with the table and year
+          on each screen.
+        </p>
       </main>
     </div>
   );
